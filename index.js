@@ -39,6 +39,22 @@ class Quadtree {
 
   }
 
+  retrieve(obj) {
+    let index = this.getIndex(obj)
+    let returnObjects = this.objects
+
+    if (this.nodes.length !== 0) {
+      if (index !== -1) {
+        returnObjects = returnObjects.concat(this.nodes[index].retrieve(obj))
+      } else {
+        for (let i = 0; i < this.nodes.length; i++) {
+          returnObjects = returnObjects.concat(this.nodes[i].retrieve(obj));
+        }
+      }
+    }
+    return returnObjects
+  }
+
   getIndex(obj) {
     // Top Left
     if (
@@ -104,8 +120,9 @@ class Quadtree {
 
 let quad = new Quadtree(0, { x: 0, y: 0, width: 640, height: 480 })
 
-for (let i = 0; i < 1000; i++) {
-  quad.insert({ x: Math.floor(Math.random() * 640) + 1, y: Math.floor(Math.random() * 480) + 1, width: 10, height: 10 })
-}
+quad.insert({ x: 100, y: 100, width: 10, height: 10 })
+quad.insert({ x: 130, y: 130, width: 10, height: 10 })
+quad.insert({ x: 430, y: 340, width: 10, height: 10 })
+quad.insert({ x: 420, y: 345, width: 10, height: 10 })
 
-console.log(quad)
+quad.retrieve({ x: 100, y: 100, width: 10, height: 10 })
