@@ -109,20 +109,17 @@ class Quadtree {
   clear() {
     this.objects = []
     for (let i = 0; i < this.nodes.length; i++) {
-      if (this.nodes[i] !== undefined) {
+      if (typeof this.nodes[0] !== undefined) {
         this.nodes[i].clear()
-        this.nodes[i] = undefined
       }
     }
+    this.nodes = []
   }
 
 }
 
 let quad = new Quadtree(0, { x: 0, y: 0, width: 640, height: 480 })
 
-quad.insert({ x: 100, y: 100, width: 10, height: 10 })
-quad.insert({ x: 130, y: 130, width: 10, height: 10 })
-quad.insert({ x: 430, y: 340, width: 10, height: 10 })
-quad.insert({ x: 420, y: 345, width: 10, height: 10 })
-
-quad.retrieve({ x: 100, y: 100, width: 10, height: 10 })
+for (let i = 0; i < 20; i++) {
+  quad.insert({ x: Math.floor(Math.random() * (640 - 20)) + 1, y: Math.floor(Math.random() * (480 - 20)) + 1, width: 20, height: 20 })
+}
